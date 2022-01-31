@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 const Card = ({card, index, compare, solved, color, setColor, openIndex, setOpenIndex}) => {
 
@@ -14,10 +14,11 @@ const Card = ({card, index, compare, solved, color, setColor, openIndex, setOpen
 
     return (
         <div className={"card-frame"} >
-            <div className={(solved.includes(card) || openIndex.includes(index))? 'card flip' : 'card'} onClick={()=>openCard(card)}>
+            <div className={(solved.includes(card) || openIndex.includes(index))? 'card flip' : 'card'} onClick = {()=>{
+                if (!openIndex.includes(index)) openCard(card)}}>
 
                 <div className={"card-face card-front"}/>
-                <div className={"card-face card-back"} style={{backgroundColor:card}} >{card}</div>
+                <div className={"card-face card-back"} style={{backgroundColor:card}} />
             </div>
         </div>
 
@@ -25,11 +26,3 @@ const Card = ({card, index, compare, solved, color, setColor, openIndex, setOpen
 };
 
 export default Card;
-
-// onClick={()=>clickFunk(card)}
-
-//
-// {/*<div className={'card'} style={{backgroundColor:card}} onClick={()=>clickFunk(card)}>*/}
-// {/*    /!*{card}*!/*/}
-// {/*    /!*<img src={card.img} alt={card.name}/>*!/*/}
-// {/*</div>*/}

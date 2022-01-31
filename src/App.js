@@ -164,20 +164,31 @@ function App() {
     const [color, setColor]=useState('');
     const [openIndex, setOpenIndex]=useState([]);
     const [start, setStart]=useState(true);
+    const [points, setPoints]=useState(0);
+    const [moves, setMoves]=useState(0);
 
     const newGame=()=> {
         setStart(false);
         const mixedCards=cards0.sort((a, b) => Math.random() - 0.5);
         setCards(mixedCards);
         setSolved([]);
+        setPoints(0);
+        setMoves(0);
     };
 
 
 
     const compare=(c1, c2)=>{
-        if (c1===c2) setSolved([...solved, c1]);
+
+        if (c1===c2) {
+            setSolved([...solved, c1]);
+            setPoints(points+1);
+        };
         setColor('');
-        setTimeout(()=>setOpenIndex([]), 1000);
+        setTimeout(()=> {
+            setOpenIndex([]);
+            setMoves(moves+1);
+        }, 1000);
         pabaiga();
     }
 
@@ -190,7 +201,10 @@ function App() {
 
   return (
     <div className="App">
-
+        <div className={'flex'}>
+            <p>Success: <b>{points}</b></p>
+            <p>Failures: <b>{moves-points}</b></p>
+        </div>
       <div className={'game-container'}>
         {cards.map((card,i)=><Card cards={cards} card={card} key={[i]} index={i} compare={compare} solved={solved} setSolved={setSolved} color={color} setColor={setColor} openIndex={openIndex} setOpenIndex={setOpenIndex}/>)}
       </div>
